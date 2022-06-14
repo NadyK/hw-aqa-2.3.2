@@ -11,6 +11,10 @@ import java.util.Locale;
 import static io.restassured.RestAssured.given;
 
 public class DataGenerator {
+    private final static String login = "vasya";
+    private final static String password = "password";
+    private final static String status = "active";
+
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
             .setPort(9999)
@@ -24,10 +28,10 @@ public class DataGenerator {
 
 
     private static void sendRequest(RegistrationDto user) {
-        user = new RegistrationDto("vasya", "password", "active");
+
         given() // "дано"
                 .spec(requestSpec) // указываем, какую спецификацию используем
-                .body(user) // передаём в теле объект, который будет преобразован в JSON
+                .body(new RegistrationDto(login, password, status)) // передаём в теле объект, который будет преобразован в JSON
                 .when() // "когда"
                 .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
                 .then() // "тогда ожидаем"
@@ -58,7 +62,7 @@ public class DataGenerator {
 
         public static RegistrationDto getUser(String status) {
             // + создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
-           RegistrationDto user = new RegistrationDto("vasya", "password", status ) ;
+           RegistrationDto user = new RegistrationDto(login, password, status ) ;
             return user;
         }
 
