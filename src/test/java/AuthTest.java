@@ -17,30 +17,10 @@ import static com.codeborne.selenide.Selenide.open;
 import static io.restassured.RestAssured.given;
 
 public class AuthTest {
-    private static final RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri("http://localhost")
-            .setPort(9999)
-            .setAccept(ContentType.JSON)
-            .setContentType(ContentType.JSON)
-            .log(LogDetail.ALL)
-            .build();
 
     @BeforeEach
     void setup() {
         open("http://localhost:9999");
-    }
-
-    @BeforeAll
-
-    static void setUpAll() {
-        RegistrationDto user = new RegistrationDto("vasya", "password", "active");
-        given() // "дано"
-                .spec(requestSpec) // указываем, какую спецификацию используем
-                .body(user) // передаём в теле объект, который будет преобразован в JSON
-                .when() // "когда"
-                .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
-                .then() // "тогда ожидаем"
-                .statusCode(200); // код 200 OK
     }
 
     @Test
