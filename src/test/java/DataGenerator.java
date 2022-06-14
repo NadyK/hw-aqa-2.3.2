@@ -33,22 +33,22 @@ public class DataGenerator {
                 .then() // "тогда ожидаем"
                 .statusCode(200); // код 200 OK
 
-        // TODO: отправить запрос на указанный в требованиях path, передав в body запроса объект user
-        //  и не забудьте передать подготовленную спецификацию requestSpec.
+        //+отправить запрос на указанный в требованиях path, передав в body запроса объект user
+        // + и не забудьте передать подготовленную спецификацию requestSpec.
         //  Пример реализации метода показан в условии к задаче.
     }
 
     public static String getRandomLogin() {
         String login=faker.letterify("????????");
-        // TODO: добавить логику для объявления переменной login и задания её значения, для генерации
-        //  случайного логина используйте faker
+        // + добавить логику для объявления переменной login и задания её значения, для генерации
+        //  + случайного логина используйте faker
         return login;
     }
 
     public static String getRandomPassword() {
         String password = faker.regexify("[a-z1-9]{10}");
-        // TODO: добавить логику для объявления переменной password и задания её значения, для генерации
-        //  случайного пароля используйте faker
+        // + добавить логику для объявления переменной password и задания её значения, для генерации
+        // + случайного пароля используйте faker
         return password;
     }
 
@@ -57,29 +57,20 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
-            // TODO: создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
+            // + создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
            RegistrationDto user = new RegistrationDto("vasya", "password", status ) ;
             return user;
         }
 
         public static RegistrationDto getRegisteredUser(String status) {
-            // TODO: объявить переменную registeredUser и присвоить ей значение возвращённое getUser(status).
-          
-            RegistrationDto registeredUser = getUser(status);
+            // + объявить переменную registeredUser и присвоить ей значение возвращённое getUser(status).
+                      RegistrationDto registeredUser = getUser(status);
 
-            // Послать запрос на регистрацию пользователя с помощью вызова sendRequest(registeredUser)
-
+            // +Послать запрос на регистрацию пользователя с помощью вызова sendRequest(registeredUser)
             sendRequest(registeredUser);
 
             return registeredUser;
         }
     }
-
-  //  @Value
-   // public static class RegistrationDto {
-   //     String login;
-   //     String password;
-   //     String status;
-   // }
 }
 

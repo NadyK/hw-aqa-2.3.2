@@ -32,12 +32,9 @@ public class AuthTest {
         $(byClassName("button")).click();
         $(byText("Личный кабинет")).shouldBe(Condition.appear, Duration.ofSeconds(15));
     }
-        // TODO: добавить логику теста, в рамках которого будет выполнена попытка входа в личный кабинет с учётными
+        // + добавить логику теста, в рамках которого будет выполнена попытка входа в личный кабинет с учётными
         //  данными зарегистрированного активного пользователя, для заполнения полей формы используйте
         //  пользователя registeredUser
-
-
-
 
     @Test
     @DisplayName("Should get error message if login with not registered user")
@@ -61,7 +58,7 @@ public class AuthTest {
         $(byClassName("button")).click();
         $(byText("Личный кабинет")).shouldBe(Condition.appear, Duration.ofSeconds(15));
 
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет,
+        // + добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет,
         //  заблокированного пользователя, для заполнения полей формы используйте пользователя blockedUser
     }
 
@@ -74,7 +71,7 @@ public class AuthTest {
         $( "[data-test-id=password] input").setValue(registeredUser.getPassword());
         $(byClassName("button")).click();
         $(byText("Ошибка")).shouldBe(Condition.appear, Duration.ofSeconds(15));
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
+        // + добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
         //  логином, для заполнения поля формы "Логин" используйте переменную wrongLogin,
         //  "Пароль" - пользователя registeredUser
     }
@@ -89,7 +86,7 @@ public class AuthTest {
         $(byClassName("button")).click();
         $(byText("Ошибка")).shouldBe(Condition.appear, Duration.ofSeconds(15));
 
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
+        // + добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
         //  паролем, для заполнения поля формы "Логин" используйте пользователя registeredUser,
         //  "Пароль" - переменную wrongPassword
     }
