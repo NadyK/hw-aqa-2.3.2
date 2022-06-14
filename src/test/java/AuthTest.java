@@ -46,9 +46,9 @@ public class AuthTest {
     @Test
     @DisplayName("Should successfully login with active registered user")
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
-        var registeredUser = DataGenerator.Registration.getRegisteredUser("active");
-        $( "[data-test-id=login] input").setValue("vasya");
-        $( "[data-test-id=password] input").setValue("password");
+        var registeredUser = DataGenerator.Registration.getUser("active");
+        $( "[data-test-id=login] input").setValue(registeredUser.getLogin());
+        $( "[data-test-id=password] input").setValue(registeredUser.getPassword());
         $(byClassName("button")).click();
         $(byText("Личный кабинет")).shouldBe(Condition.appear, Duration.ofSeconds(15));
     }
@@ -57,12 +57,14 @@ public class AuthTest {
         //  пользователя registeredUser
 
 
+
+
     @Test
     @DisplayName("Should get error message if login with not registered user")
     void shouldGetErrorIfNotRegisteredUser() {
         var notRegisteredUser = DataGenerator.Registration.getUser("active");
-        $( "[data-test-id=login] input").setValue(notRegisteredUser.getLogin());
-        $( "[data-test-id=password] input").setValue(notRegisteredUser.getPassword());
+        $( "[data-test-id=login] input").setValue(DataGenerator.getRandomLogin());
+        $( "[data-test-id=password] input").setValue(DataGenerator.getRandomPassword());
         $(byClassName("button")).click();
         $(byText("Ошибка")).shouldBe(Condition.appear, Duration.ofSeconds(15));
 
@@ -74,7 +76,10 @@ public class AuthTest {
     @DisplayName("Should get error message if login with blocked registered user")
     void shouldGetErrorIfBlockedUser() {
         var blockedUser = DataGenerator.Registration.getRegisteredUser("blocked");
-
+        $( "[data-test-id=login] input").setValue(blockedUser.getLogin());
+        $( "[data-test-id=password] input").setValue(blockedUser.getPassword());
+        $(byClassName("button")).click();
+        $(byText("Личный кабинет")).shouldBe(Condition.appear, Duration.ofSeconds(15));
 
         // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет,
         //  заблокированного пользователя, для заполнения полей формы используйте пользователя blockedUser
@@ -86,7 +91,7 @@ public class AuthTest {
         var registeredUser = DataGenerator.Registration.getRegisteredUser("active");
         var wrongLogin = DataGenerator.getRandomLogin();
         $( "[data-test-id=login] input").setValue(wrongLogin);
-        $( "[data-test-id=password] input").setValue("password");
+        $( "[data-test-id=password] input").setValue(registeredUser.getPassword());
         $(byClassName("button")).click();
         $(byText("Ошибка")).shouldBe(Condition.appear, Duration.ofSeconds(15));
         // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
@@ -99,7 +104,7 @@ public class AuthTest {
     void shouldGetErrorIfWrongPassword() {
         var registeredUser = DataGenerator.Registration.getRegisteredUser("active");
         var wrongPassword = DataGenerator.getRandomPassword();
-        $( "[data-test-id=login] input").setValue("vasya");
+        $( "[data-test-id=login] input").setValue(registeredUser.getLogin());
         $( "[data-test-id=password] input").setValue(wrongPassword);
         $(byClassName("button")).click();
         $(byText("Ошибка")).shouldBe(Condition.appear, Duration.ofSeconds(15));
