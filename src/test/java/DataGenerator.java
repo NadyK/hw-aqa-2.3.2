@@ -61,7 +61,7 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
-            // + создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
+            // + создан зарегистрированный пользователь с имеющимся login, password и с параметром status
            RegistrationDto user = new RegistrationDto(login, password, status ) ;
             return user;
         }
