@@ -26,7 +26,7 @@ public class AuthTest {
     @Test
     @DisplayName("Should successfully login with active registered user")
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
-        var registeredUser = DataGenerator.Registration.getUser("active");
+        var registeredUser = DataGenerator.Registration.getRegisteredUser("active");
         $( "[data-test-id=login] input").setValue(registeredUser.getLogin());
         $( "[data-test-id=password] input").setValue(registeredUser.getPassword());
         $(byClassName("button")).click();
@@ -40,12 +40,12 @@ public class AuthTest {
     @DisplayName("Should get error message if login with not registered user")
     void shouldGetErrorIfNotRegisteredUser() {
         var notRegisteredUser = DataGenerator.Registration.getUser("active");
-        $( "[data-test-id=login] input").setValue(DataGenerator.getRandomLogin());
-        $( "[data-test-id=password] input").setValue(DataGenerator.getRandomPassword());
+        $( "[data-test-id=login] input").setValue(notRegisteredUser.getLogin());
+        $( "[data-test-id=password] input").setValue(notRegisteredUser.getPassword());
         $(byClassName("button")).click();
         $(byText("Ошибка")).shouldBe(Condition.appear, Duration.ofSeconds(15));
 
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет
+        // + добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет
         //  незарегистрированного пользователя, для заполнения полей формы используйте пользователя notRegisteredUser
     }
 
@@ -56,7 +56,7 @@ public class AuthTest {
         $( "[data-test-id=login] input").setValue(blockedUser.getLogin());
         $( "[data-test-id=password] input").setValue(blockedUser.getPassword());
         $(byClassName("button")).click();
-        $(byText("Личный кабинет")).shouldBe(Condition.appear, Duration.ofSeconds(15));
+        $(byText("Пользователь заблокирован")).shouldBe(Condition.appear, Duration.ofSeconds(15));
 
         // + добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет,
         //  заблокированного пользователя, для заполнения полей формы используйте пользователя blockedUser

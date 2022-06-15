@@ -11,9 +11,6 @@ import java.util.Locale;
 import static io.restassured.RestAssured.given;
 
 public class DataGenerator {
-    private final static String login = "vasya";
-    private final static String password = "password";
-    private final static String status = "active";
 
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
@@ -31,7 +28,7 @@ public class DataGenerator {
 
         given() // "дано"
                 .spec(requestSpec) // указываем, какую спецификацию используем
-                .body(new RegistrationDto(login, password, status)) // передаём в теле объект, который будет преобразован в JSON
+                .body(user) // передаём в теле объект, который будет преобразован в JSON
                 .when() // "когда"
                 .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
                 .then() // "тогда ожидаем"
@@ -43,7 +40,7 @@ public class DataGenerator {
     }
 
     public static String getRandomLogin() {
-        String login=faker.letterify("????????");
+        String login=faker.name().firstName();
         // + добавить логику для объявления переменной login и задания её значения, для генерации
         //  + случайного логина используйте faker
         return login;
@@ -61,8 +58,10 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
-            // + создан зарегистрированный пользователь с имеющимся login, password и с параметром status
-           RegistrationDto user = new RegistrationDto(login, password, status ) ;
+            // + создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
+
+            RegistrationDto user = new RegistrationDto(getRandomLogin(), getRandomPassword(), status ) ;
+
             return user;
         }
 
