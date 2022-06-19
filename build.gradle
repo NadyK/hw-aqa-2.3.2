@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.progsbase.libraries:JSON:0.4.0'
+    testImplementation 'com.progsbase.libraries:JSON:0.4.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0-M1'
     testImplementation 'com.codeborne:selenide:6.4.0'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
